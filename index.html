@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Aptitude Test</title>
+    <style>
+      h1 {
+        text-align: center;
+      }
+      p {
+        text-align: justify;
+        font-size: 20px;
+        margin: 20px;
+      }
+      .highlight {
+        background-color: green;
+        color: white;
+        padding: 10px;
+      }
+    </style>
+    <script>
+      function startTest() {
+        window.location = "Questions1.html";
+      }
+      // Variables to keep track of the current page and time remaining
+    var currentPage = 1;
+    var timeRemaining = 0;
+
+    // Function to show a specific page
+    function showPage(pageNum) {
+      document.getElementById("page" + currentPage).style.display = "none";
+      document.getElementById("page" + pageNum).style.display = "block";
+      currentPage = pageNum;
+    }
+
+    // Function to start the timer
+    function startTimer(duration) {
+      timeRemaining = duration;
+      var timerInterval = setInterval(function() {
+        timeRemaining--;
+        document.getElementById("timer").innerHTML = timeRemaining + " seconds";
+        if (timeRemaining === 0) {
+          clearInterval(timerInterval);
+          showPage(6);
+        }
+      }, 1000);
+    }
+
+    // Function to handle leaving the test pages
+    function handleBeforeUnload(e) {
+      showPage(6);
+      e.preventDefault();
+      e.returnValue = '';
+    }
+
+    // Add the beforeunload event listener
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    // Start the timer
+    startTimer(300); // 300 seconds = 5 minutes
+    </script>
+  </head>
+  <body>
+    <h1>Aptitude Test</h1>
+    <p>
+      This test uses symbols and numbers (rather than words) to generate a result.
+      As such, students with an aptitude for numbers show an aptitude for this type of test.
+    </p>
+    <p>
+      Think of the symbols as "commands" or "primitive functions".
+      A result will be returned if the command is issued (i.e. the primitive function is applied).
+    </p>
+    <p>
+      The purpose of this test is to see if you can interpret what the result of the command means,
+      and can therefore predict what the result will be of a similar command when applied to a different set of numbers.
+    </p>
+    <p>
+      In the first set of questions, the commands are simple. The more advanced tabs have the same format of questions, but the difficulty increases.
+      Questions in the more advanced tabs will use some of the commands that you have already been introduced to in previous tabs.
+    </p>
+    <p>
+      Each question has 2 parts:
+      Part 1 contains a COMMAND and what the RESULT is when you apply the command to a set of numbers (or characters).
+      Part 2 contains a SIMILAR COMMAND and you have to complete the column "MY ANSWER" to show what the result would be.
+    </p>
+    <p>
+      The "command" will contain symbols such as @, #, % or a combination of symbols (such as +/).
+      [E.g. if you see that 2#5 gives the answer 7, you will know that the command # is to add the 2 numbers together].
+    </p>
+    <p>
+      The first 2 Questions already have the correct answers in the "MY ANSWER" column – it serves as an example of how you must answer the questions that follow.
+    </p>
+    <p class="highlight">
+      The sections you have to complete are highlighted in Green.
+      Pay specific attention to those questions where the answer (green block) must have more than 1 row.
+    </p>
+    <p style="background-color: yellow; color: black; padding: 10px;">
+      The score for each Question is in yellow.
+    </p>
+    <button onclick="startTest()">Start Test</button>
+  </body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    window.onbeforeunload = function() {
+      return "Are you sure you want to leave this page? Your test will be cancelled.";
+    };
+    let minutes = 20; // Set timer for 20 minutes
+
+// Function to start the timer
+function startTimer() {
+  let countDownDate = new Date().getTime() + minutes * 60 * 1000;
+  let x = setInterval(function () {
+    let now = new Date().getTime();
+    let distance = countDownDate - now;
+    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    document.getElementById("timer").innerHTML =
+      minutes + "m " + seconds + "s ";
+    if (distance < 0) {
+      clearInterval(x);
+      document.getElementById("timer").innerHTML = "EXPIRED";
+      window.location.href = "last_page.html";
+    }
+  }, 1000);
+}
+
+// Function to move to the next page
+function nextPage() {
+  window.location.href = "Questions3.html";
+}
+
+// Function to move to the previous page
+function prevPage() {
+  window.location.href = "introduction.html";
+}
+  </script>
+  <style>
+    .score {
+      background-color: yellow;
+      width: 50px;
+      height: 20px;
+      text-align: center;
+    }
+    .question {
+      border: 1px solid black;
+      margin-top: 20px;
+      width: 600px;
+      height: 120px;
+    }
+    .command {
+      width: 300px;
+      height: 50px;
+      float: left;
+      border-right: 1px solid black;
+      padding-left: 20px;
+    }
+    .result {
+      width: 150px;
+      height: 50px;
+      float: left;
+      border-right: 1px solid black;
+      padding-left: 20px;
+    }
+    .similar-command {
+      width: 300px;
+      height: 50px;
+      float: left;
+      padding-left: 20px;
+    }
+    .my-answer {
+      background-color: green;
+      width: 150px;
+      height: 50px;
+      float: left;
+      padding-left: 20px;
+    }
+    .clear {
+      clear: both;
+    }
+  </style>
+</head>
+<body>
+  <h1>Aptitude Test</h1>
+  <h2>Page 2</h2>
+
+  <div class="question">
+    <div class="command">
+      COMMAND
+      <br>
+      2#5
+    </div>
+    <div class="result">
+      RESULT
+      <br>
+      7
+    </div>
+    <div class="similar-command">
+      SIMILAR COMMAND
+      <br>
+      2#6
+    </div>
+    <div class="my-answer">
+      MY ANSWER
+      <br>
+      <input type="text" size="5">
+    </div>
+    <div class="clear"></div>
+  </div>
+
+  <div class="question">
+    <!-- Will add more questions here -->
+  </div>
+
+  <br>
+  <div id="timer">
+    Timer: <span id="time"></span>
+  </div>
+
+  <br>
+  <button id="prev">Prev Page</button>
+  <button id="next">Next Page</button>
+</body>
+
+<script>
+  
+  let count = 30;
+  let timer = setInterval(function() {
+    document.getElementById("time").innerHTML = count + " secs";
+    count--;
+    if (count < 0) {
+      clearInterval(timer);
+      document.getElementById("time").innerHTML = "Expired";
+      // Redirect to last page here
+    }
+  }, 1000);
+
+  document.getElementById("prev").addEventListener("click", function() {
+  prevPage();
+});
+document.getElementById("next").addEventListener("click", function() {
+  nextPage();
+});
+</script>
+
+</html>
