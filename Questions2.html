@@ -32,9 +32,22 @@ function prevPage() {
       width: 600px;
       height: 120px;
     }
+    .tablequestion {
+      border: 1px solid black;
+      margin-top: 20px;
+      width: 600px;
+      height: 220px;
+    }
     .command {
       width: 300px;
       height: 50px;
+      float: left;
+      border-right: 1px solid black;
+      padding-left: 20px;
+    }
+    .tablecommand {
+      width: 300px;
+      height: 100px;
       float: left;
       border-right: 1px solid black;
       padding-left: 20px;
@@ -46,9 +59,22 @@ function prevPage() {
       border-right: 1px solid black;
       padding-left: 20px;
     }
+    .tableresult {
+      width: 150px;
+      height: 100px;
+      float: left;
+      border-right: 1px solid black;
+      padding-left: 20px;
+    }
     .similar-command {
       width: 300px;
       height: 50px;
+      float: left;
+      padding-left: 20px;
+    }
+    .tablesimilar-command {
+      width: 300px;
+      height: 100px;
       float: left;
       padding-left: 20px;
     }
@@ -59,12 +85,20 @@ function prevPage() {
       float: left;
       padding-left: 20px;
     }
+    .tablemy-answer {
+      background-color: green;
+      width: 150px;
+      height: 100px;
+      float: left;
+      padding-left: 20px;
+    }
     .clear {
       clear: both;
     }
   </style>
 </head>
 <body>
+  <script src="questions.js"></script>
   <h1>Aptitude Test</h1>
   <h2>Page 2</h2>
 
@@ -72,47 +106,51 @@ function prevPage() {
     <div class="command">
       COMMAND
       <br>
-      1 + 2
+      1 0 0 1 \ 2 5	
     </div>
     <div class="result">
       RESULT
       <br>
-      3
+      2 0 0 5
     </div>
     <div class="similar-command">
       SIMILAR COMMAND
       <br>
-      2 + 4
+      <script>document.write(generateQuestionBinarySequence())</script>
     </div>
     <div class="my-answer">
       MY ANSWER
       <br>
-      6
+      <input type="text" size="5">
     </div>
     <div class="clear"></div>
   </div>
 
-  <div class="question">
+  <div class="tablequestion">
     <!-- Will add more questions here -->
-   <div class="command">
+   <div class="tablecommand">
       COMMAND
       <br>
-      1 + 2  5
+      2 3 ? 1 3 5 1 6
     </div>
-    <div class="result">
+    <div class="tableresult">
       RESULT
       <br>
-      3  6
+      1  3  5 
+      <br>
+      1  6  1    
+
+     <br>
     </div>
-    <div class="similar-command">
+    <div class="tablesimilar-command">
       SIMILAR COMMAND
       <br>
-      2 + 2  3
+      <script>document.write(tableFilling())</script>
     </div>
-    <div class="my-answer">
+    <div class="tablemy-answer">
       MY ANSWER
       <br>
-      4  5
+      <input type="text" size="5">
     </div>
     <div class="clear"></div> 
   </div>
