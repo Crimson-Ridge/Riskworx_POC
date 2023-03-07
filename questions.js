@@ -8,6 +8,16 @@ function prevPage() {
   window.location.href = "introduction.html";
 }
 
+// Function to move to the next page
+function nextPage2() {
+  window.location = "Questions3.html";
+}
+
+// Function to move to the previous page
+function prevPage2() {
+  window.location.href = "Questions1.html";
+}
+
 // Define function to generate random integer in a range
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -294,7 +304,7 @@ function cumulativetableFilling() {
   return [question, answer];
 }
 
-function generateRandomNums(numRows, numCols) {
+ function generateRandomNums(numRows, numCols) {
   const numValues = Math.floor(Math.random() * 5) + 3;
   const nums = [];
   for (let i = 0; i < numValues; i++) {
@@ -318,7 +328,7 @@ function generateRandomNums(numRows, numCols) {
   return tableNums;
 }
 
-function addTables(table1Nums, table2Nums) {
+ function addTables(table1Nums, table2Nums) {
   const table1Rows = table1Nums.split(",").map(row => row.split(" "));
   const table2Rows = table2Nums.split(",").map(row => row.split(" "));
   const numRows = table1Rows.length;
@@ -337,4 +347,152 @@ function addTables(table1Nums, table2Nums) {
   }
 
   return table3Rows.join("<br> ");
+}
+
+function addTableColumns(numsStr) {
+  const rows = numsStr.split(",").map(row => row.split(" "));
+  const numCols = rows[0].length;
+  const colSums = new Array(numCols).fill(0);
+
+  for (let i = 0; i < rows.length; i++) {
+    for (let j = 0; j < numCols; j++) {
+      const num = parseInt(rows[i][j]);
+      if (!isNaN(num)) {
+        colSums[j] += num;
+      }
+    }
+  }
+
+  return colSums.join(" ");
+}
+
+
+function columnAddition() {
+  const maxRows = 4;
+  const maxCols = 4;
+
+  // generate random number of rows and columns
+  const numRows = Math.ceil(Math.random() * maxRows);
+  const numCols = Math.ceil(Math.random() * maxCols);
+
+  // generate random numbers to fill the grid
+  const numString = Array.from({length: numRows * numCols}, (_, i) => Math.ceil(Math.random() * 9)).slice(0, numRows * numCols);
+
+  // calculate the sum of each column
+  const colSums = Array.from({length: numCols}, (_, j) => {
+    let sum = 0;
+    for (let i = 0; i < numRows; i++) {
+      const index = i * numCols + j;
+      sum += numString[index];
+    }
+    return sum;
+  });
+
+  // create the question string
+  const question = `+/ (${numCols} ${numRows} ? ${numString.join(' ')}) = ${colSums.join(' ')}`;
+
+  return question;
+}
+
+function cumulativeAddition() {
+  const maxRows = 4;
+  const maxCols = 4;
+
+  // generate random number of rows and columns
+  const numRows = Math.ceil(Math.random() * maxRows);
+  const numCols = Math.ceil(Math.random() * maxCols);
+
+  // generate random numbers to fill the grid
+  const numString = Array.from({ length: numRows * numCols }, (_, i) => Math.ceil(Math.random() * 9)).join('');
+
+  // calculate cumulative sums for each row
+  let formattedNumString = '';
+  let cumSum = 0;
+  for (let i = 0; i < numRows; i++) {
+    formattedNumString += '<div>';
+    for (let j = 0; j < numCols; j++) {
+      const index = (i * numCols + j) % numString.length;
+      const num = Number(numString[index]);
+      cumSum += num;
+      formattedNumString += cumSum + ' ';
+    }
+    formattedNumString += '<br/></div>';
+    cumSum = 0;
+  }
+
+  // create the question string
+  const question = `+\\ (${numRows} ${numCols} ? ${numString}) = ${formattedNumString}`;
+
+  return question;
+}
+
+
+
+function numberSizeOrder() {
+    // Generate a random number of digits to use after the '^'
+     // Generate a random number of digits to use after the '^'
+  const numDigits = Math.floor(Math.random() * 10) + 1;
+
+  // Generate a set of unique digits
+  const digitsSet = new Set();
+  while (digitsSet.size < numDigits) {
+    digitsSet.add(Math.floor(Math.random() * 10));
+  }
+  const digits = Array.from(digitsSet).join(' ');
+
+  // Split the digits into an array and sort them in descending order
+  const digitArr = digits.split(' ').map(d => parseInt(d));
+  const sortedArr = digitArr.slice().sort((a, b) => b - a);
+
+  // Create a mapping of each digit to its rank
+  const rankMap = new Map(sortedArr.map((d, i) => [d, i + 1]));
+
+  // Map each digit in the original array to its rank and combine into a string
+  const rankStr = digitArr.map(d => rankMap.get(d)).join(' ');
+
+  // Combine everything into the final string
+  return `^ ${digits} = ${rankStr}`;
+}
+
+
+//this marks the end of the second page 
+
+
+
+function generateQuestion(){
+  // Generate a random value for n between 5 and 10
+  const n = Math.floor(Math.random() * 6) + 5;
+
+  // Generate a random number of elements for X between 4 and 7
+  const numElements = Math.floor(Math.random() * 4) + 4;
+
+  // Generate an array of numElements random integers between 1 and n
+  const X = Array.from({ length: numElements }, () => Math.floor(Math.random() * n) + 1);
+
+  // Generate a random boolean value to determine whether to ask the multiplication table question or the summation question
+  const isMultiplicationTableQuestion = Math.random() < 0.5;
+
+  if (isMultiplicationTableQuestion) {
+    // Format the string of values that the table will be based on
+    const valuesStr = X.join(' ');
+
+    // Return the question and its type as an object
+    return {
+      type: 'Multiplication Table Question',
+      question: `What is the multiplication table for X = [${X.join(', ')}]?`
+        + `\n\nFill in the table with the multiples of the values given by X = [${valuesStr}].`
+    };
+  } else {
+    // Calculate the result of X [] X
+    const result = X.map((x) => X.map((y) => x + y));
+
+    // Format the result as a string
+    const resultStr = result.map((row) => row.join('\t')).join('\n');
+
+    // Return the question and its type as an object
+    return {
+      type: 'Summation Question',
+      question: `What is the result of X [] X, where X = [${X.join(', ')}]?\n\n${resultStr}`
+    };
+  }
 }
